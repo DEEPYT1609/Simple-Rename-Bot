@@ -1,3 +1,9 @@
 pyrogram
 Tgcrypto
- 
+aiofiles
+Pillow
+humanize
+hachoir
+motor
+dnspython
+aiohttp
