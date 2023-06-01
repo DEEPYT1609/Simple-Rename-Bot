@@ -3,7 +3,7 @@ from pyrogram import Client, filters, enums
 from config import DOWNLOAD_LOCATION, CAPTION, ADMIN
 from main.utils import progress_message, humanbytes
 
-@Client.on_message(filters.private & filters.command("rename") & filters.user(ADMIN))             
+@Client.on_message(filters.private & (filters.document | filters.audio | filters.video) & filters.user(ADMIN))             
 async def rename_file(bot, msg):
     reply = msg.reply_to_message
     if len(msg.command) < 2 or not reply:
@@ -13,7 +13,7 @@ async def rename_file(bot, msg):
        await msg.reply_text("Please Reply To An File or video or audio With filename + .extension eg:-(`.mkv` or `.mp4` or `.zip`)")
     og_media = getattr(reply, reply.media.value)
     new_name = msg.text.split(" ", 1)[1]
-    sts = await msg.reply_text("Trying to Downloading.....")
+    sts = await msg.reply_text("ғɪʟᴇ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ sᴛᴀʀᴛ.....")
     c_time = time.time()
     downloaded = await reply.download(file_name=new_name, progress=progress_message, progress_args=("Download Started.....", sts, c_time)) 
     filesize = humanbytes(og_media.file_size)                
@@ -38,7 +38,7 @@ async def rename_file(bot, msg):
             print(e)        
             og_thumbnail = None
         
-    await sts.edit("Trying to Uploading")
+    await sts.edit("ғɪʟᴇ ᴜᴘʟᴏᴀᴅɪɴɢ sᴛᴀʀᴛ....")
     c_time = time.time()
     try:
         await bot.send_document(msg.chat.id, document=downloaded, thumb=og_thumbnail, caption=cap, progress=progress_message, progress_args=("Uploade Started.....", sts, c_time))        
